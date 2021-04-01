@@ -1,17 +1,34 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 namespace GlowingEngine
 {
     public class Age
     {
+        const int MaxInterval = 125;
+
         public static DateTime GetAgeSumIntersect(DateTime parent, params DateTime[] children)
         {
+            DateTime intersect = DateTime.MinValue;
             // naive method is to test each x interval since the children were born whether ages intersect.
+            // start when parent is at the age of the youngest child.
+            //int startOfInterval = CalculateAge()
 
-            // tests will naturally fail.
+            for (int i = 0; i < MaxInterval; i++)
+            {
+                DateTime referenceCheckpoint = parent.AddYears(i);
+                int parentAge = CalculateAge(parent, referenceCheckpoint);
+                int childrenAge = children.Sum(child => CalculateAge(child, referenceCheckpoint));
 
-            return DateTime.MinValue;
+                if (parentAge == childrenAge)
+                {
+                    intersect = parent.AddYears(i);
+                    break;
+                }
+            }
+
+            return intersect;
         }
 
         /// <summary>
@@ -20,10 +37,10 @@ namespace GlowingEngine
         /// </summary>
         /// <param name="birthdate"></param>
         /// <returns></returns>
-        public static int CalculateAge(DateTime birthdate)
+        public static int CalculateAge(DateTime birthdate, DateTime checkpoint)
         {
-            // Save today's date.
-            var today = DateTime.Today;
+            // Save the reference date
+            var today = checkpoint;
 
             // Calculate the age.
             var age = today.Year - birthdate.Year;
