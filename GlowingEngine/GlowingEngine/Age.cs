@@ -7,6 +7,7 @@ namespace GlowingEngine
     public class Age
     {
         const int MaxInterval = 125;
+        private const int AverageDaysInAYear = 365;
 
         public static DateTime GetAgeSumIntersect(DateTime parent, params DateTime[] children)
         {
@@ -15,15 +16,15 @@ namespace GlowingEngine
             // start when parent is at the age of the youngest child.
             //int startOfInterval = CalculateAge()
 
-            for (int i = 0; i < MaxInterval; i++)
+            for (int i = 0; i < MaxInterval * AverageDaysInAYear; i++)
             {
-                DateTime referenceCheckpoint = parent.AddYears(i);
+                DateTime referenceCheckpoint = parent.AddDays(i);
                 int parentAge = CalculateAge(parent, referenceCheckpoint);
                 int childrenAge = children.Sum(child => CalculateAge(child, referenceCheckpoint));
 
                 if (parentAge == childrenAge)
                 {
-                    intersect = parent.AddYears(i);
+                    intersect = parent.AddDays(i);
                     break;
                 }
             }
@@ -33,7 +34,7 @@ namespace GlowingEngine
 
         /// <summary>
         /// https://stackoverflow.com/questions/9/how-do-i-calculate-someones-age-based-on-a-datetime-type-birthday
-        /// <remarks>I've used this before and it accounts for leap years.</remarks>
+        /// <remarks>I've used this before and it accounts for leap years, modified it to use a checkpoint argument.</remarks>
         /// </summary>
         /// <param name="birthdate"></param>
         /// <returns></returns>
