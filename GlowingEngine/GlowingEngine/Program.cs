@@ -10,7 +10,8 @@ namespace GlowingEngine
 
             DateTime firstTwin = new DateTime(2018, 1, 1);
             DateTime secondTwin = new DateTime(2018, 1, 1);
-            Console.WriteLine(Age.GetAgeSumIntersect(parent, firstTwin, secondTwin));
+
+            Console.WriteLine(new AgeQuantizedToDays().GetAgeSumIntersect(parent, firstTwin, secondTwin));
         }
     }
 }
