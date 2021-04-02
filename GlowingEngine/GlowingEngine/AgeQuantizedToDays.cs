@@ -14,15 +14,18 @@ namespace GlowingEngine
         {
             DateTime intersect = DateTime.MinValue;
 
+            //get the 'floor' relative to days (remove minutes, seconds)
+            var parentFloor = parent.Date;
+
             for (long i = 0; i < MaxInterval * AverageDaysInAYear; i++)
             {
-                DateTime referenceCheckpoint = parent.AddDays(i);
+                DateTime referenceCheckpoint = parentFloor.AddDays(i);
                 int parentAge = Utilities.CalculateAge(parent, referenceCheckpoint);
                 int childrenAge = children.Sum(child => Utilities.CalculateAge(child, referenceCheckpoint));
 
                 if (parentAge == childrenAge)
                 {
-                    intersect = parent.AddDays(i);
+                    intersect = parentFloor.AddDays(i);
                     break;
                 }
             }
