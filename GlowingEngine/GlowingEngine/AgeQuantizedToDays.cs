@@ -25,7 +25,7 @@ namespace GlowingEngine
 
                 if (parentAge == childrenAge)
                 {
-                    intersect = parentFloor.AddDays(i);
+                    intersect = referenceCheckpoint;
                     break;
                 }
             }
