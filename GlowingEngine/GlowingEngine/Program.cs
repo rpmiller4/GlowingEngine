@@ -32,20 +32,29 @@ namespace GlowingEngine
                 var ageFirstChild = CalculateAge(firstChild, intersect);
                 var ageSecondChild = CalculateAge(secondChild, intersect);
 
-                var parentAgeInTicks = intersect.Ticks - parent.Ticks;
-                var firstChildAgeInTicks = intersect.Ticks - firstChild.Ticks;
-                var secondChildAgeInTicks = intersect.Ticks - secondChild.Ticks;
+                TimeSpan parentAgeAsDuration = intersect - parent;
+                TimeSpan firstChildAgeAsDuration = intersect - firstChild;
+                TimeSpan secondChildAgeAsDuration = intersect - secondChild;
 
-                var sumOfAllChildrenAges = ageFirstChild + ageSecondChild;
-                var sumOfAllChildrenAgesInTicks = firstChildAgeInTicks + secondChildAgeInTicks;
+                int sumOfAllChildrenAges = ageFirstChild + ageSecondChild;
+                TimeSpan sumOfAllChildrenAgesAsDuration = firstChildAgeAsDuration + secondChildAgeAsDuration;
+
+                const double averageFractionalDaysInAYear = 365.2425;
+
+                var fractionalAgeParent = parentAgeAsDuration.TotalDays / averageFractionalDaysInAYear;
+                var fractionalAgeFirstChild = firstChildAgeAsDuration.TotalDays / averageFractionalDaysInAYear;
+                var fractionalAgeSecondChild = secondChildAgeAsDuration.TotalDays / averageFractionalDaysInAYear;
+                var fractionalSumOfChildrenAges = sumOfAllChildrenAgesAsDuration.TotalDays / averageFractionalDaysInAYear;
 
                 // Using Gregorian Calendar to get Age in Decimal Precision Years
                 Console.WriteLine($"Intersect: {intersect}");
-                Console.WriteLine("                 Age in Years, Age in Ticks, Age Decimal");
-                Console.WriteLine("Age Parent:      {0}, {1}, {2}", ageParent, parentAgeInTicks, new TimeSpan(parentAgeInTicks).TotalDays / 365.2425);
-                Console.WriteLine("Age FirstChild:  {0}, {1}, {2}", ageFirstChild, firstChildAgeInTicks, new TimeSpan(firstChildAgeInTicks).TotalDays / 365.2425);
-                Console.WriteLine("Age SecondChild: {0}, {1}, {2}", ageSecondChild, secondChildAgeInTicks, new TimeSpan(secondChildAgeInTicks).TotalDays / 365.2425);
-                Console.WriteLine("Sum Ages:        {0}, {1}, {2}", sumOfAllChildrenAges, sumOfAllChildrenAgesInTicks, new TimeSpan(sumOfAllChildrenAgesInTicks).TotalDays / 365.2425);
+                Console.WriteLine();
+                Console.WriteLine("                 Age in Years, Age in Ticks, Age Fractional");
+                Console.WriteLine("Age Parent:      {0}, {1}, {2}", ageParent, parentAgeAsDuration.Ticks, fractionalAgeParent);
+                Console.WriteLine("Age FirstChild:  {0}, {1}, {2}", ageFirstChild, firstChildAgeAsDuration.Ticks, fractionalAgeFirstChild);
+                Console.WriteLine("Age SecondChild: {0}, {1}, {2}", ageSecondChild, secondChildAgeAsDuration.Ticks, fractionalAgeSecondChild);
+                Console.WriteLine("Sum Ages:        {0}, {1}, {2}", sumOfAllChildrenAges, sumOfAllChildrenAgesAsDuration.Ticks, fractionalSumOfChildrenAges);
+                Console.WriteLine();
                 Console.WriteLine();
             }
         }
