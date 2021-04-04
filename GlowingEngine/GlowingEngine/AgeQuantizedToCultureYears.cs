@@ -1,27 +1,30 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
+using System.Threading;
 
 namespace GlowingEngine
 {
-    public class AgeQuantizedToSeconds : IGetAgeSumIntersect
+    public class AgeQuantizedToCultureYears : IGetAgeSumIntersect
     {
         private const long MaxInterval = 125;
         private const long AverageDaysInAYear = 365;
-        private const long AverageSecondsInADay = 86400;
 
         public DateTime GetAgeSumIntersect(DateTime parent, params DateTime[] children)
         {
             DateTime intersect = DateTime.MinValue;
 
-            for (long i = 0; i < MaxInterval * AverageDaysInAYear * AverageSecondsInADay; i++)
+            var parentFloor = parent.Date;
+
+            for (long i = 0; i < MaxInterval * AverageDaysInAYear; i++)
             {
-                DateTime referenceCheckpoint = parent.AddSeconds(i);
+                DateTime referenceCheckpoint = parentFloor.AddDays(i);
                 int parentAge = Utilities.CalculateAge(parent, referenceCheckpoint);
                 int childrenAge = children.Sum(child => Utilities.CalculateAge(child, referenceCheckpoint));
 
                 if (parentAge == childrenAge)
                 {
-                    intersect = parent.AddSeconds(i);
+                    intersect = referenceCheckpoint;
                     break;
                 }
             }

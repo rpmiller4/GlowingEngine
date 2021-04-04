@@ -7,12 +7,12 @@ namespace GlowingEngine.Tests
     [TestFixture]
     public class AgeQuantizedToDaysTests
     {
-        private AgeQuantizedToDays _age;
+        private AgeQuantizedToCultureYears _ageSolver;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _age = new AgeQuantizedToDays();
+            _ageSolver = new AgeQuantizedToCultureYears();
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace GlowingEngine.Tests
             DateTime parent = new DateTime(2021, 4, 1);
             DateTime child = new DateTime(2021, 4, 1);
 
-            Assert.AreEqual(parent, _age.GetAgeSumIntersect(parent, child));
+            Assert.AreEqual(parent, _ageSolver.GetAgeSumIntersect(parent, child));
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace GlowingEngine.Tests
 
             var expectedIntersect = new DateTime(2036, 1, 1);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTwin, secondTwin));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTwin, secondTwin));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2006, 1, 1);
             var expectedIntersect = new DateTime(2009, 1, 1);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2006, 2, 28);
             var expectedIntersect = new DateTime(2009, 2, 28);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2004, 2, 29);
             var expectedIntersect = new DateTime(2006, 3, 1);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2004, 2, 29, 23, 59, 59);
             var expectedIntersect = new DateTime(2006, 3, 1, 00, 00, 00);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2004, 2, 29, 0, 0, 0);
             var expectedIntersect = new DateTime(2006, 3, 1, 0, 0, 0);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2006, 2, 28, 0, 0, 0);
             var expectedIntersect = new DateTime(2009, 2, 28, 0, 0, 0);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace GlowingEngine.Tests
             DateTime thirdTriplet = new DateTime(2006, 2, 28, 23, 59, 59);
             var expectedIntersect = new DateTime(2009, 2, 28, 00, 00, 00);
 
-            Assert.AreEqual(expectedIntersect, _age.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
+            Assert.AreEqual(expectedIntersect, _ageSolver.GetAgeSumIntersect(parent, firstTriplet, secondTriplet, thirdTriplet));
         }
     }
 }
