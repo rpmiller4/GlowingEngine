@@ -39,14 +39,14 @@ namespace GlowingEngine
                 int sumOfAllChildrenAges = ageFirstChild + ageSecondChild;
                 TimeSpan sumOfAllChildrenAgesAsDuration = firstChildAgeAsDuration + secondChildAgeAsDuration;
 
-                const double averageFractionalDaysInAYear = 365.2425;
+                const double averageFractionalDaysInAGregorianCalendarYear = 365.2425;
 
-                var fractionalAgeParent = parentAgeAsDuration.TotalDays / averageFractionalDaysInAYear;
-                var fractionalAgeFirstChild = firstChildAgeAsDuration.TotalDays / averageFractionalDaysInAYear;
-                var fractionalAgeSecondChild = secondChildAgeAsDuration.TotalDays / averageFractionalDaysInAYear;
-                var fractionalSumOfChildrenAges = sumOfAllChildrenAgesAsDuration.TotalDays / averageFractionalDaysInAYear;
+                var fractionalAgeParent = parentAgeAsDuration.TotalDays / averageFractionalDaysInAGregorianCalendarYear;
+                var fractionalAgeFirstChild = firstChildAgeAsDuration.TotalDays / averageFractionalDaysInAGregorianCalendarYear;
+                var fractionalAgeSecondChild = secondChildAgeAsDuration.TotalDays / averageFractionalDaysInAGregorianCalendarYear;
+                var fractionalSumOfChildrenAges = sumOfAllChildrenAgesAsDuration.TotalDays / averageFractionalDaysInAGregorianCalendarYear;
 
-                // Using Gregorian Calendar to get Age in Decimal Precision Years
+
                 Console.WriteLine($"Intersect: {intersect}");
                 Console.WriteLine();
                 Console.WriteLine("                 Age in Years, Age in Ticks, Age Fractional");
